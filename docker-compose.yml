@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   blog-strapi-backend:
     container_name: blog-strapi-backend
@@ -17,20 +17,20 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       NODE_ENV: ${NODE_ENV}
     volumes:
-      - ./config:/opt/app/config
-      - ./src:/opt/app/src
-      - ./package.json:/opt/package.json
-      - ./yarn.lock:/opt/yarn.lock
+      # - ./config:/opt/app/config
+      # - ./src:/opt/app/src
+      # - ./package.json:/opt/package.json
+      # - ./yarn.lock:/opt/yarn.lock
 
       - ./.env:/opt/app/.env
       - ./public/uploads:/opt/app/public/uploads
     ports:
-      - '1337:1337'
+      - "1337:1337"
     networks:
       - blog-strapi-backend
     depends_on:
       - blog-strapi-backendDB
-      
+
   blog-strapi-backendDB:
     container_name: blog-strapi-backendDB
     platform: linux/amd64 #for platform error on Apple M1 chips
@@ -46,16 +46,16 @@ services:
       #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
 
     ports:
-      - '5432:5432'
+      - "5432:5432"
     networks:
       - blog-strapi-backend
-      
+
   blog-strapi-backendAdminer:
     container_name: blog-strapi-backendAdminer
     image: adminer
     restart: unless-stopped
     ports:
-      - '9090:8080'
+      - "9090:8080"
     environment:
       - ADMINER_DEFAULT_SERVER=blog-strapi-backendDB
     networks:
