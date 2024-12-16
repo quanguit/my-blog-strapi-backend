@@ -16,7 +16,7 @@ export default [
         useDefaults: true,
         directives: {
           "script-src": ["self", "https://cdn.ckeditor.com"],
-          "connect-src": ["https://proxy-event.ckeditor.com"],
+          "connect-src": ["self", "https://proxy-event.ckeditor.com"],
         },
       },
     },
