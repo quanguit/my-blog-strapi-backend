@@ -55,6 +55,7 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/my-blog-backend:latest
+          file: ./Dockerfile.prod
 
   # Deploy job (optional, if you want to deploy after building)
   deploy:
