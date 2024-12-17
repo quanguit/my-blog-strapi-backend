@@ -21,6 +21,8 @@ export default [
             "https://proxy-event.ckeditor.com",
             "https:",
           ],
+          "img-src": ["'self'"],
+          "media-src": ["'self'"],
         },
       },
     },
