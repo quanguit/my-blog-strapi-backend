@@ -4,7 +4,7 @@ services:
     container_name: blog-strapi-backend
     # build: .
     image: blog-strapi-backend:latest
-    restart: unless-stopped
+    restart: always
     env_file: .env
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
@@ -30,6 +30,8 @@ services:
       - blog-strapi-backend
     depends_on:
       - blog-strapi-backendDB
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
 
   blog-strapi-backendDB:
     container_name: blog-strapi-backendDB
