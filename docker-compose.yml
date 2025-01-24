@@ -3,6 +3,7 @@ services:
     container_name: blog-strapi-backend
     # build: .
     image: blog-strapi-backend:latest
+    # image: ghcr.io/quanguit/my-blog-backend:latest
     restart: always
     env_file: .env
     environment:
