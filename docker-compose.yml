@@ -4,7 +4,7 @@ services:
     # build: .
     image: blog-strapi-backend:latest
     # image: ghcr.io/quanguit/my-blog-backend:latest
-    restart: always
+    restart: unless-stopped
     env_file: .env
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
@@ -36,7 +36,7 @@ services:
   blog-strapi-backendDB:
     container_name: blog-strapi-backendDB
     platform: linux/amd64 #for platform error on Apple M1 chips
-    restart: always
+    restart: unless-stopped
     env_file: .env
     image: postgres:14.5-alpine
     environment:
