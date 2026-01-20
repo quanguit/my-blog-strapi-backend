@@ -27,4 +27,12 @@ export default [
       },
     },
   },
+  {
+    name: "strapi::body",
+    config: {
+      jsonLimit: "50mb",
+      formLimit: "50mb",
+      textLimit: "50mb",
+    },
+  },
 ];
