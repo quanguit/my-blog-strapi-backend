@@ -1,20 +1,27 @@
 # Creating multi-stage build for production
-FROM node:20-alpine as build
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev > /dev/null 2>&1
+FROM node:20-bookworm-slim AS build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential \
+      python3 \
+      pkg-config \
+      libvips-dev \
+    && rm -rf /var/lib/apt/lists/*
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /opt/
 COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm@10.34.5 && pnpm install --prod --frozen-lockfile
-ENV PATH /opt/node_modules/.bin:$PATH
+ENV PATH=/opt/node_modules/.bin:$PATH
 WORKDIR /opt/app
 COPY . .
 RUN pnpm build
 
 # Creating final production image
-FROM node:20-alpine
-RUN apk add --no-cache vips-dev
+FROM node:20-bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      libvips-dev \
+    && rm -rf /var/lib/apt/lists/*
 RUN npm install -g pnpm@10.34.5
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -22,7 +29,7 @@ WORKDIR /opt/
 COPY --from=build /opt/node_modules ./node_modules
 WORKDIR /opt/app
 COPY --from=build /opt/app ./
-ENV PATH /opt/node_modules/.bin:$PATH
+ENV PATH=/opt/node_modules/.bin:$PATH
 
 RUN chown -R node:node /opt/app
 USER node

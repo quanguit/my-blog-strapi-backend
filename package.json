@@ -35,5 +35,8 @@
   },
   "strapi": {
     "uuid": "9fdab8d4-0b98-4476-88b0-ea4f735600f0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["sharp"]
   }
 }
